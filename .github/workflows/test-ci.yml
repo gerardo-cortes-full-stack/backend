@@ -10,9 +10,8 @@ name: Java CI with Maven
 
 on:
   push: # Note: teat any push to any feature branch but don't package, deploy...
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches-ignore:
+      - 'main'
 
 jobs:
   build-and-test:
@@ -22,11 +21,13 @@ jobs:
     steps:
     - name: Checkout the repo source code
       uses: actions/checkout@v4
+
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+
     - name: Build & Test with Maven
       run: mvn clean test
